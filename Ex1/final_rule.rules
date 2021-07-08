@@ -1,0 +1,1 @@
+ACTION=="add",KERNEL=="sd[a-z]",ACTION=="add",KERNEL=="sd[a-z]",ATTRS{idProduct}=="4300",ATTRS{idVendor}=="13fe", RUN+="/home/nicolas/Desktop/stuff_handler.sh", RUN+="/home/nicolas/Desktop/stuff_handler.sh"

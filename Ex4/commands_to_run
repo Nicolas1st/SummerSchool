@@ -1,0 +1,3 @@
+docker build -t fire_container Ex4
+xhost local:root
+docker container run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/X11-unix --net=host fire_container

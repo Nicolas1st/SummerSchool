@@ -2,13 +2,17 @@ import numpy as np
 import cv2
   
 
-filepath = input('path to the file')
+filepath = input('Path to the file: ')
 cap = cv2.VideoCapture(filepath)
 fgbg = cv2.createBackgroundSubtractorMOG2()
   
 while True:
 
     ret, frame = cap.read()       
+
+    if ret:
+        print("The last frame given was empty")
+        break
   
     fgmask = fgbg.apply(frame)  
 

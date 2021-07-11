@@ -8,9 +8,9 @@ fgbg = cv2.createBackgroundSubtractorMOG2()
   
 while True:
 
-    ret, frame = cap.read()       
+    returned, frame = cap.read()       
 
-    if ret:
+    if not returned:
         print("The last frame given was empty")
         break
   

@@ -1,13 +1,10 @@
 import numpy as np
 import cv2
-from copy import copy
   
 
-filepath = input('path to the file: ')
+filepath = input('path to the file')
 cap = cv2.VideoCapture(filepath)
 fgbg = cv2.createBackgroundSubtractorMOG2()
-detector = cv2.SimpleBlobDetector(cv2.SimpleBlobDetector_Params())
-
   
 while True:
 
@@ -24,6 +21,25 @@ while True:
     lower_black = np.array([120], dtype = "uint8")
     upper_black = np.array([255], dtype = "uint8")
     mask = cv2.inRange(dilated, lower_black, upper_black)
+
+    contours, hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    cv2.drawContours(frame, contours, -1, (0, 0, 255), 6)
+
+    # drawing the bouding boxes,
+    # the following colors are used
+    # red - contours
+    # green - point from which the bouding box is drawn 
+    # blue - the bounding box itself
+    for cnt in contours:
+        rect = cv2.boundingRect(cnt)
+        central_x = rect[0]
+        central_y = rect[1]
+        width = rect[2]
+        height = rect[3]
+        start_point = (central_x + height, central_y + width)
+        end_point = (central_x, central_y)
+        frame = cv2.rectangle(frame, start_point, end_point, (255, 0, 0), 5)
+        frame[central_y-10:central_y+10,central_x-10:central_x+10] = (0, 255, 0)
 
     cv2.imshow('frame', frame)
     cv2.imshow('mask', mask)
